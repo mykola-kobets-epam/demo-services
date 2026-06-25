@@ -1,0 +1,102 @@
+# Configuration for AosEdge Update Bundle (schemaVersion: 2)
+# Documentation: https://docs.aosedge.tech/docs/reference/file-formats/service-config
+
+# Schema version (required, must be 2)
+schemaVersion: 2
+
+# Publisher information (optional)
+publisher:
+  author: "Developer Name"
+  company: "Company Name"
+
+# Publishing information (required: tlsKey; optional: domain, signKey)
+publish:
+  tlsKey: "aos-user-sp.p12"
+
+# List of deployable items (like services) to include in the deployment bundle
+# Three identical startup-delay services (service0/service1/service2), each with
+# 100 instances, all built from the same instance-startup-delay source.
+items:
+  # Instance startup delay test service 0
+  - identity:
+      type: "service"
+      codename: "demo-instance-startup-delay-service0"
+      title: "Demo Instance Startup Delay 0"
+      description: "Demo service for startup delay testing (service0)"
+    version: "2.0.34-beta.1"
+    sourceFolder: "instance-startup-delay-c"
+
+    # Architecture-specific image (binary built by ./build.sh)
+    images:
+      - sourceFolder: "x86"
+        archInfo:
+          architecture: "amd64"
+
+    # Service configuration
+    configuration:
+      workingDir: "/"
+      cmd: /startup-delay-demo-service
+      instances:
+        minInstances: 100
+        priority: 10
+      quotas:
+        cpuLimit: 200           # DMIPS
+        ramLimit: 1MiB
+        storageLimit: 1MiB
+      skipResourceLimits: true
+
+  # Instance startup delay test service 1
+  - identity:
+      type: "service"
+      codename: "demo-instance-startup-delay-service1"
+      title: "Demo Instance Startup Delay 1"
+      description: "Demo service for startup delay testing (service1)"
+    version: "2.0.34-beta.1"
+    sourceFolder: "instance-startup-delay-c"
+
+    # Architecture-specific image (binary built by ./build.sh)
+    images:
+      - sourceFolder: "x86"
+        archInfo:
+          architecture: "amd64"
+
+    # Service configuration
+    configuration:
+      workingDir: "/"
+      cmd: /startup-delay-demo-service
+      instances:
+        minInstances: 100
+        priority: 10
+      quotas:
+        cpuLimit: 200           # DMIPS
+        ramLimit: 1MiB
+        storageLimit: 1MiB
+      skipResourceLimits: true
+
+  # Instance startup delay test service 2
+  - identity:
+      type: "service"
+      codename: "demo-instance-startup-delay-service2"
+      title: "Demo Instance Startup Delay 2"
+      description: "Demo service for startup delay testing (service2)"
+    version: "2.0.34-beta.1"
+    sourceFolder: "instance-startup-delay-c"
+
+    # Architecture-specific image (binary built by ./build.sh)
+    images:
+      - sourceFolder: "x86"
+        archInfo:
+          architecture: "amd64"
+
+    # Service configuration
+    configuration:
+      workingDir: "/"
+      cmd: /startup-delay-demo-service
+      instances:
+        minInstances: 54
+        priority: 10
+      quotas:
+        cpuLimit: 200           # DMIPS
+        ramLimit: 1MiB
+        storageLimit: 1MiB
+      skipResourceLimits: true
